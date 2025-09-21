@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  spark-service:
+    build: .
+    ports:
+      - "8080:8080"   # Spring Boot application
+      - "4040:4040"   # Spark UI
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPARK_MASTER=local[*]
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge
+
+volumes:
+  spark-data:
+  spark-logs:

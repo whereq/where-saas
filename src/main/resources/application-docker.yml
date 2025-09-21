@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spark-as-a-service
+  main:
+    web-application-type: reactive
+
+spark:
+  app-name: spark-as-a-service-docker
+  master: local[*]
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.apache.spark: INFO
+    com.whereq.spark: DEBUG
+    root: INFO
+  file:
+    path: /app/logs
+    name: /app/logs/spark-service.log
